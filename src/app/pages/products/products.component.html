@@ -1,0 +1,135 @@
+<div class="row align-item-strech">
+    <div class="col bg-white p-5 rounded-end">
+        <div class="p-3">
+            <h2 class="text-center fs-1 fw-bold py-4">Productos</h2>
+            <div class="tabla-botones">
+                <div class="container-fluid">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-md-auto">
+                            <select class="form-select">
+                                <option value="" disabled selected>Ver</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <label class="form-label">Valores por página</label>
+                        </div>
+                        <div class="col-md-auto">
+                            <form class="d-flex">
+                                <input class="form-control me-2" type="search" placeholder="Buscar en productos" aria-label="Search">
+                                <button class="btn btn-outline-dark d-flex" type="submit"><i class="pe-1 bi bi-search"></i>Buscar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div>
+                        <button type="button" class="mt-3 px-5 btn btn-success fw-semibold shadow-sm" (click)="addProduct()">Agregar producto</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover caption-top table-striped">
+                            <caption>Lista de productos</caption>
+                            <thead class="table-dark text-center">
+                                <tr>
+                                    <th>Codigo</th>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody class="align-middle">
+                                <tr *ngFor="let producto of listDeProductos">
+                                    <td>{{producto.code}}</td>
+                                    <td>{{producto.name}}</td>
+                                    <td>{{producto.price}}</td>
+                                    <td>{{producto.stock}}</td>
+                                    <td class="text-center">
+                                        <button class="btn m-1 btn-warning">Editar</button>
+                                        <button class="btn m-1 btn-danger" (click)="deleteProduct()">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-md-auto">
+                            <div class="d-flex flex-wrap justify-content-center">
+                                <button class="btn m-1 btn-dark btn-sm">PDF</button>
+                                <button class="btn m-1 btn-success btn-sm">Print</button>
+                                <button class="btn m-1 btn-warning btn-sm">Export</button>
+                                <button class="btn m-1 btn-danger btn-sm">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #addModalProduct let-modal>
+    <form [formGroup]="formAddProduct" (ngSubmit)="save()">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Agregar producto</h5>
+            </div>
+            <div class="card-body">
+                <label for="name" class="form-label">
+                    Nombre del producto:
+                </label>
+                <div class="mb-4 input-group">
+                    <div class="input-group-text">
+                        <i class="bi bi-bag"></i>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Nombre" formControlName="name">
+                </div>
+                <label for="price" class="form-label">
+                    Precio:
+                </label>
+                <div class="mb-4 input-group">
+                    <div class="input-group-text">
+                        <i class="bi bi-cash"></i>
+                    </div>
+                    <input type="number" class="form-control" placeholder="Precio" formControlName="price">
+                </div>
+                <label for="name" class="form-label">
+                    Stock:
+                </label>
+                <div class="mb-4 input-group">
+                    <div class="input-group-text">
+                        <i class="bi bi-box"></i>
+                    </div>
+                    <input type="number" class="form-control" placeholder="Stock" formControlName="stock">
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-success"> Guardar producto </button>
+            </div>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #deleteModalProduct let-modal>
+    <!-- <form (ngSubmit)="deleteP()"> !-->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Atención</h5>
+            </div>
+            <div class="card-body">
+                <label for="name" class="form-label">
+                    ¿Está seguro de que desea eliminar este producto?
+                </label>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-danger mx-1">Eliminar</button>
+                <button type="button" class="btn btn-warning mx-1" (click)="modal.dismiss('cancel')">Cancelar</button>
+            </div>
+        </div>
+    <!-- </form> !-->
+</ng-template>
+
