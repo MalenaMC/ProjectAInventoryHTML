@@ -1,85 +1,87 @@
-<div class="container w-75 mt-5 mb-5 rounded shadow image-container">
-    <div class="row align-item-strech">
-        <div class="col p-5 rounded-end">
-            <div class="p-3">
-                <div class="d-flex justify-content-center">
-                    <img
-                    src="/assets/img/avatar-mrdo.png"
-                    alt="login-icon"
-                    style="height: 7rem;"> 
+<div class="container">
+    <div class="container bg-white w-75 mt-5 mb-5 rounded shadow image-container">
+        <div class="row align-item-strech">
+            <div class="col bg-white p-5 rounded-end">
+                <div class="p-3">
+                    <div class="d-flex justify-content-center">
+                        <img
+                        src="/assets/img/avatar.png"
+                        alt="login-icon"
+                        style="height: 7rem;"> 
+                    </div>
+                    <h2 class="text-center fs-1 fw-bold py-4">Registro</h2>
+                    <form [formGroup]="formRegister" (ngSubmit)="onSubmit()">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <div class="mb-4 input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <input type="text" class="form-control" name="nombre" placeholder="Nombre" formControlName="name">
+                        </div>
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <div class="mb-4 input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-person-vcard"></i>
+                            </div>
+                            <input type="text" class="form-control" name="apellido" placeholder="Apellido" formControlName="lastName">
+                        </div>
+                        <label for="dni" class="form-label">DNI</label>
+                        <div class="mb-4 input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <input type="number" class="form-control" name="dni" placeholder="DNI" formControlName="dni">
+                        </div>
+                        <div class="mb-4">
+                            <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+                            <input type="date" class="form-control me-2" formControlName="dateOfBirth">
+                        </div>
+                        <label for="correo" class="form-label">
+                            Correo Electrónico
+                            <span class="text-danger fw-bold" [hidden]="formRegister.get('email')?.valid || formRegister.get('email')?.untouched">* Debes colocar un email válido.</span>
+                        </label>
+                        <div class="mb-4 input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-envelope-at"></i>
+                            </div>
+                            <input type="email" class="form-control" name="email" placeholder="Correo electrónico" formControlName="email">
+                        </div>
+                        <label for="contraseña" class="form-label">
+                            Contraseña
+                            <span class="text-danger fw-bold" [hidden]="formRegister.get('password')?.valid || formRegister.get('password')?.untouched">
+                                * Tu contraseña no tiene los carácteres mínimos ( {{ formRegister.get('password')?.value?.length }} /8 )
+                            </span>
+                        </label>
+                        <div class="mb-4 input-group">
+                            <div  class="input-group-text">
+                                <i class="bi bi-incognito"></i>
+                            </div>
+                            <input type="password" class="form-control" name="password" placeholder="Contraseña" formControlName="password">
+                        </div>
+                        <label for="confirmar_contraseña" class="form-label">
+                            Confirmar Contraseña
+                            <span class="text-danger fw-bold" [hidden]=" formRegister.get('confirm_password')?.value === formRegister.get('password')?.value ">
+                                * Las contraseñas no coinciden.
+                            </span>
+                        </label>
+                        <div class="mb-4 input-group">
+                            <div  class="input-group-text">
+                                <i class="bi bi-incognito"></i>
+                            </div>
+                            <input type="password" class="form-control" name="confirmar_contraseña" placeholder="Confirmar Contraseña" formControlName="confirm_password">
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn text-light color-bg fw-semibold shadow-sm" [disabled]="formRegister.invalid">Registrarse</button>
+                        </div>
+                        <div class="my-3 d-flex justify-content-center">
+                            <span>¿Ya tienes una cuenta? <a href="http://localhost:4200/auth/login" class="text-color-mrdo text-decoration-none fw-semibold">Inicia sesión</a> </span>
+                        </div>
+                    </form>
                 </div>
-                <h2 class="text-center fs-1 fw-bold py-4">Registro</h2>
-                <form [formGroup]="formRegister" (ngSubmit)="onSubmit()">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <div class="mb-4 input-group">
-                        <div class="input-group-text">
-                            <i class="bi bi-person-circle"></i>
-                        </div>
-                        <input type="text" class="form-control" name="nombre" placeholder="Nombre" formControlName="name">
-                    </div>
-                    <label for="apellido" class="form-label">Apellido</label>
-                    <div class="mb-4 input-group">
-                        <div class="input-group-text">
-                            <i class="bi bi-person-vcard"></i>
-                        </div>
-                        <input type="text" class="form-control" name="apellido" placeholder="Apellido" formControlName="lastName">
-                    </div>
-                    <label for="dni" class="form-label">DNI</label>
-                    <div class="mb-4 input-group">
-                        <div class="input-group-text">
-                            <i class="bi bi-person-circle"></i>
-                        </div>
-                        <input type="number" class="form-control" name="dni" placeholder="DNI" formControlName="dni">
-                    </div>
-                    <div class="mb-4">
-                        <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
-                        <input type="date" class="form-control me-2" formControlName="dateOfBirth">
-                    </div>
-                    <label for="correo" class="form-label">
-                        Correo Electrónico
-                        <span class="text-danger fw-bold" [hidden]="formRegister.get('email')?.valid || formRegister.get('email')?.untouched">* Debes colocar un email válido.</span>
-                    </label>
-                    <div class="mb-4 input-group">
-                        <div class="input-group-text">
-                            <i class="bi bi-envelope-at"></i>
-                        </div>
-                        <input type="email" class="form-control" name="email" placeholder="Correo electrónico" formControlName="email">
-                    </div>
-                    <label for="contraseña" class="form-label">
-                        Contraseña
-                        <span class="text-danger fw-bold" [hidden]="formRegister.get('password')?.valid || formRegister.get('password')?.untouched">
-                            * Tu contraseña no tiene los carácteres mínimos ( {{ formRegister.get('password')?.value?.length }} /8 )
-                        </span>
-                    </label>
-                    <div class="mb-4 input-group">
-                        <div  class="input-group-text">
-                            <i class="bi bi-incognito"></i>
-                        </div>
-                        <input type="password" class="form-control" name="password" placeholder="Contraseña" formControlName="password">
-                    </div>
-                    <label for="confirmar_contraseña" class="form-label">
-                        Confirmar Contraseña
-                        <span class="text-danger fw-bold" [hidden]=" formRegister.get('confirm_password')?.value === formRegister.get('password')?.value ">
-                            * Las contraseñas no coinciden.
-                        </span>
-                    </label>
-                    <div class="mb-4 input-group">
-                        <div  class="input-group-text">
-                            <i class="bi bi-incognito"></i>
-                        </div>
-                        <input type="password" class="form-control" name="confirmar_contraseña" placeholder="Confirmar Contraseña" formControlName="confirm_password">
-                    </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-dark fw-semibold shadow-sm" [disabled]="formRegister.invalid">Registrarse</button>
-                    </div>
-                    <div class="my-3 d-flex justify-content-center">
-                        <span>¿Ya tienes una cuenta? <a href="http://localhost:4200/auth/login" class="text-color-mrdo text-decoration-none fw-semibold">Inicia sesión</a> </span>
-                    </div>
-                </form>
             </div>
-        </div>
-        <div class="background col d-none d-lg-block col-md-5 col-lg-5 col-xlg-6 rounded">
-            <img src="/assets/img/shop-mrdo.png" alt="login-image" class="img-fluid ">
+            <div class="background col d-none d-lg-block col-md-5 col-lg-5 col-xlg-6 rounded">
+                <img src="/assets/img/oficina2.png" alt="login-image" class="img-fluid ">
+            </div>
         </div>
     </div>
 </div>

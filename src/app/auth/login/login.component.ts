@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router'
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../services/auth.service';
 
@@ -36,7 +36,7 @@ export class LoginComponent {
     }).subscribe({
       next: (value) => {
         console.log(value),
-        this.notifycation.success(`Has iniciado sesión correctamente. ${value.name} ${value.lastName} ${value.message} `, 'Éxito')
+        this.notifycation.success(`Has iniciado sesión correctamente.`, 'Éxito')
         this.formLogin.reset();
         this.router.navigateByUrl('/pages/home');
       },

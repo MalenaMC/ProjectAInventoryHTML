@@ -1,65 +1,67 @@
-<div class="container bg-white w-75 mt-5 mb-5 rounded shadow">
-    <div class="row align-item-strech">
-        <div class="background col bg d-none d-lg-block col-md-5 col-lg-5 col-xlg-6 rounded">
-            <img src="/assets/img/shop-nrja.png" alt="login-image" class="img-fluid ">
-        </div>
-        <div class="col bg-white p-5 rounded-end">
-            <div class="p-3">
-                <div class="d-flex justify-content-center">
-                    <img
-                    src="/assets/img/avatar-nrja.png"
-                    alt="login-icon"
-                    style="height: 7rem;"> 
+<div class="container">
+    <div class="container bg-white w-75 mt-5 mb-5 rounded shadow">
+        <div class="row align-item-strech">
+            <div class="background col bg d-none d-lg-block col-md-5 col-lg-5 col-xlg-6 rounded">
+                <img src="/assets/img/oficina1.png" alt="login-image" class="img-fluid ">
+            </div>
+            <div class="col bg-white p-5 rounded-end">
+                <div class="p-3">
+                    <div class="d-flex justify-content-center">
+                        <img
+                        src="/assets/img/avatar.png"
+                        alt="login-icon"
+                        style="height: 7rem;"> 
+                    </div>
+                    <h2 class="text-center fs-1 fw-bold py-4">Iniciar Sesión</h2>
+                    <form [formGroup]="formLogin" (ngSubmit)="login()">
+                        <label for="correo" class="form-label">
+                            Correo Electrónico
+                            <span class="text-danger fw-bold" [hidden]="formLogin.get('email')?.valid || formLogin.get('email')?.untouched">* Debes colocar un email válido.</span>
+                        </label>
+                        <div class="mb-4 input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-envelope-at"></i>
+                            </div>
+                            <input type="email" class="form-control" name="email" placeholder="Correo electrónico" formControlName="email">
+                        </div>
+                        <label for="contrasena" class="form-label">
+                            Contraseña
+                            <span class="text-danger fw-bold" [hidden]="formLogin.get('password')?.valid || formLogin.get('password')?.untouched">
+                                * Tu contraseña no tiene los carácteres mínimos ( {{ formLogin.get('password')?.value?.length }} /8 )
+                            </span>
+                        </label>
+                        <div class="mb-4 input-group">
+                            <div  class="input-group-text">
+                                <i class="bi bi-incognito"></i>
+                            </div>
+                            <input type="password" class="form-control" name="password" placeholder="Contraseña" formControlName="password">
+                        </div>
+                        <div class="mb-4 d-flex flex-column flex-md-row justify-content-around align-items-center">
+                            <div class="mb-4 form-check">
+                                <input type="checkbox" name="conectado" class="form-check-input" id="">
+                                <label for="conectado" class="form-check-label">Mantenerme conectado</label>
+                            </div>
+                            <div class="text-end mb-4">
+                                <a href="http://localhost:4200/auth/recover" class="text-color-mrdo text-decoration-none fw-semibold fst-italic">¿Olvidaste tu contraseña?</a>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn text-light color-bg fw-semibold shadow-sm" [disabled]="formLogin.invalid">Iniciar Sesión</button>
+                        </div>
+                        <div class="my-3 d-flex justify-content-center">
+                            <span>¿No tienes una cuenta? <a href="http://localhost:4200/auth/register" class="text-color-mrdo text-decoration-none fw-semibold">Regístrate</a> </span>
+                        </div>
+                        <div class="p-3">
+                            <div class="border-bottom text-center" style="height: 0.9rem;">
+                                <span class="bg-white px-3">ó</span>
+                            </div>
+                        </div>
+                        <div class="btn d-flex gap-2 justify-content-center border mt-3 p-2 shadow-sm">
+                            <i class="bi bi-google"></i>
+                            <div class="fw-semibold text-secondary">Continuar con Google</div>
+                        </div>
+                    </form>
                 </div>
-                <h2 class="text-center fs-1 fw-bold py-4">Iniciar Sesión</h2>
-                <form [formGroup]="formLogin" (ngSubmit)="login()">
-                    <label for="correo" class="form-label">
-                        Correo Electrónico
-                        <span class="text-danger fw-bold" [hidden]="formLogin.get('email')?.valid || formLogin.get('email')?.untouched">* Debes colocar un email válido.</span>
-                    </label>
-                    <div class="mb-4 input-group">
-                        <div class="input-group-text">
-                            <i class="bi bi-envelope-at"></i>
-                        </div>
-                        <input type="email" class="form-control" name="email" placeholder="Correo electrónico" formControlName="email">
-                    </div>
-                    <label for="contrasena" class="form-label">
-                        Contraseña
-                        <span class="text-danger fw-bold" [hidden]="formLogin.get('password')?.valid || formLogin.get('password')?.untouched">
-                            * Tu contraseña no tiene los carácteres mínimos ( {{ formLogin.get('password')?.value?.length }} /8 )
-                        </span>
-                    </label>
-                    <div class="mb-4 input-group">
-                        <div  class="input-group-text">
-                            <i class="bi bi-incognito"></i>
-                        </div>
-                        <input type="password" class="form-control" name="password" placeholder="Contraseña" formControlName="password">
-                    </div>
-                    <div class="mb-4 d-flex flex-column flex-md-row justify-content-around align-items-center">
-                        <div class="mb-4 form-check">
-                            <input type="checkbox" name="conectado" class="form-check-input" id="">
-                            <label for="conectado" class="form-check-label">Mantenerme conectado</label>
-                        </div>
-                        <div class="mb-4">
-                            <a href="#" class="text-decoration-none text-warning fw-semibold fst-italic">¿Olvidaste tu contraseña?</a>
-                        </div>
-                    </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-dark fw-semibold shadow-sm" [disabled]="formLogin.invalid">Iniciar Sesión</button>
-                    </div>
-                    <div class="my-3 d-flex justify-content-center">
-                        <span>¿No tienes una cuenta? <a href="http://localhost:4200/auth/register" class="text-decoration-none text-warning fw-semibold">Regístrate</a> </span>
-                    </div>
-                    <div class="p-3">
-                        <div class="border-bottom text-center" style="height: 0.9rem;">
-                            <span class="bg-white px-3">ó</span>
-                        </div>
-                    </div>
-                    <div class="btn d-flex gap-2 justify-content-center border mt-3 p-2 shadow-sm">
-                        <i class="bi bi-google"></i>
-                        <div class="fw-semibold text-secondary">Continuar con Google</div>
-                    </div>
-                </form>
             </div>
         </div>
     </div>

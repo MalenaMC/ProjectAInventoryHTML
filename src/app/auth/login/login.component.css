@@ -1,9 +1,17 @@
 .background {
-    background-color:#ffe1ad ;
+    background-color:#a396bc ;
     width: 50%;
     display: block;
     margin-left: auto;
     margin-right: auto;
     align-content: center;
     justify-content: center;
+}
+
+.text-color-mrdo {
+    color: #7660a3;
+}
+
+.color-bg {
+    background-color: #554574;
 }

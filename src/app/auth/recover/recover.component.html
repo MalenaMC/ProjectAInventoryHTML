@@ -1,1 +1,32 @@
-<p>recover works!</p>
+<div class="container">
+    <div class="container bg-white w-75 mt-5 mb-5 rounded shadow">
+        <div class="row align-item-strech">
+            <div class="col bg-white p-5 rounded-end">
+                <div class="p-3">
+                    <h2 class="text-center fs-1 fw-bold py-4">Recuperar cuenta</h2>
+                    <form [formGroup]="formRecover" (ngSubmit)="recover()">
+                        <label for="contrasena" class="form-label">
+                            Correo electrónico
+                            <span class="text-danger fw-bold" [hidden]="formRecover.get('email')?.valid || formRecover.get('email')?.untouched">* Debes colocar un email válido.</span>
+                        </label>
+                        <div class="mb-4 input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-envelope-at"></i>
+                            </div>
+                            <input type="email" class="form-control" name="email" placeholder="Correo electrónico" formControlName="email">
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn text-light color-bg fw-semibold shadow-sm">Recuperar cuenta</button>
+                        </div>
+                        <div class="my-3 d-flex justify-content-center">
+                            <span>¿No tienes una cuenta? <a href="http://localhost:4200/auth/register" class="text-decoration-none text-color-mrdo fw-semibold">Regístrate</a> </span>
+                        </div>
+                        <div class="my-3 d-flex justify-content-center">
+                            <span>También puedes <a href="http://localhost:4200/auth/register" class="text-decoration-none text-color-mrdo fw-semibold">iniciar sesión</a> </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
