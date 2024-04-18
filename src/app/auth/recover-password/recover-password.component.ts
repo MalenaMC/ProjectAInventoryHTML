@@ -41,6 +41,8 @@ export class RecoverPasswordComponent {
 
     this.route.queryParams.subscribe(params => {
       const token = params['token'];
+
+      
       this.authService.recover_password({
         password: this.formRecoverPassword.get('password')?.value ?? ''
       }, token).subscribe({

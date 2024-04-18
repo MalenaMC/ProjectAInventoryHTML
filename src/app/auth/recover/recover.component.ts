@@ -26,6 +26,7 @@ export class RecoverComponent {
       this.notifycation.error('Debes completar el campo', 'Error');
       return;
     }
+    
     this.authService.recover({
       email: this.formRecover.get('email')?.value ?? '',
     }).subscribe({
