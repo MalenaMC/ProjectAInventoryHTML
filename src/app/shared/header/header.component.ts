@@ -17,15 +17,15 @@ export class HeaderComponent {
 
   constructor() { }
 
-  ngOnInit(): void {
-    const timer = interval(1000).pipe(
-      startWith(0)
-    );
-
-    timer.subscribe(() => {
-      const now = moment();
-      this.currentDate = now.format('YYYY-MM-DD');
-      this.currentTime = now.format('HH:mm:ss');
-    });
-  }
+  //ngOnInit(): void {
+  //  const timer = interval(1000).pipe(
+  //    startWith(0)
+  //  );
+//
+  //  timer.subscribe(() => {
+  //    const now = moment();
+  //    this.currentDate = now.format('YYYY-MM-DD');
+  //    this.currentTime = now.format('HH:mm:ss');
+  //  });
+  //}
 }

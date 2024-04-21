@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { PagesService, ProductModel } from '../../services/pages.service';
@@ -9,7 +9,7 @@ import { PagesService, ProductModel } from '../../services/pages.service';
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
@@ -20,6 +20,11 @@ export class ProductsComponent {
   private notifycation = inject(ToastrService);
 
   listDeProductos: ProductModel[] = [];
+  listFiltrados: ProductModel[] = [];
+
+  filtroProducto: string = '';
+
+
   codeSelected: string | undefined;
 
   formAddProduct = this.toolsForm.group({
@@ -35,6 +40,7 @@ export class ProductsComponent {
 
   ngOnInit(): void {
     this.showProducts();
+    this.listFiltrados = [...this.listDeProductos];
   }
 
   addProduct() {
@@ -78,6 +84,7 @@ export class ProductsComponent {
     this.pagesService.showProduct()
     .subscribe(productos => {
       this.listDeProductos = productos;
+      this.listFiltrados = [...this.listDeProductos];
     })
   }
 
@@ -92,4 +99,10 @@ export class ProductsComponent {
       }
     });
   }*/
+
+  filterProduct() {
+    this.listFiltrados = this.listDeProductos.filter(
+      producto => producto.name.toLowerCase().includes(this.filtroProducto.toLowerCase())
+    );
+  }
 }

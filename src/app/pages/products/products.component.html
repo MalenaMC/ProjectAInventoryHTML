@@ -16,10 +16,7 @@
                             <label class="form-label">Valores por página</label>
                         </div>
                         <div class="col-md-auto">
-                            <form class="d-flex">
-                                <input class="form-control me-2" type="search" placeholder="Buscar en productos" aria-label="Search">
-                                <button class="btn btn-outline-dark d-flex" type="submit"><i class="pe-1 bi bi-search"></i>Buscar</button>
-                            </form>
+                            <input type="text" [(ngModel)]="filtroProducto" (input)="filterProduct()" placeholder="Buscar en productos">
                         </div>
                     </div>
                 </div>
@@ -40,7 +37,7 @@
                                 </tr>
                             </thead>
                             <tbody class="align-middle">
-                                <tr *ngFor="let producto of listDeProductos">
+                                <tr *ngFor="let producto of listFiltrados">
                                     <td>{{producto.code}}</td>
                                     <td>{{producto.name}}</td>
                                     <td>{{producto.price}}</td>
