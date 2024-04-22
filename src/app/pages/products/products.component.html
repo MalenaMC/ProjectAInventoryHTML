@@ -34,6 +34,7 @@
                                     <th>Imagen</th>
                                     <th>Precio</th>
                                     <th>Stock</th>
+                                    <th>Detalles</th>
                                     <th> </th>
                                 </tr>
                             </thead>
@@ -46,9 +47,10 @@
                                     </td>
                                     <td>{{producto.price}}</td>
                                     <td>{{producto.stock}}</td>
+                                    <td>{{producto.details}}</td>
                                     <td class="text-center">
                                         <button class="btn m-1 btn-warning">Editar</button>
-                                        <button class="btn m-1 btn-danger" (click)="deleteProduct()">Eliminar</button>
+                                        <button class="btn m-1 btn-danger" (click)="deleteProduct(producto.code)">Eliminar</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -116,6 +118,15 @@
                     </div>
                     <input type="number" class="form-control" placeholder="Stock" formControlName="stock">
                 </div>
+                <label for="name" class="form-label">
+                    Detalles:
+                </label>
+                <div class="mb-4 input-group">
+                    <div class="input-group-text">
+                        <i class="bi bi-box"></i>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Detalles" formControlName="details">
+                </div>
             </div>
             <div class="card-footer">
                 <button class="btn btn-success"> Guardar producto </button>
@@ -125,7 +136,7 @@
 </ng-template>
 
 <ng-template #deleteModalProduct let-modal>
-    <!-- <form (ngSubmit)="deleteP()"> !-->
+    <form (ngSubmit)="confirmDelete()">
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">Atención</h5>
@@ -140,6 +151,6 @@
                 <button type="button" class="btn btn-warning mx-1" (click)="modal.dismiss('cancel')">Cancelar</button>
             </div>
         </div>
-    <!-- </form> !-->
+    </form>
 </ng-template>
 

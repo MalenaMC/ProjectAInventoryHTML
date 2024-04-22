@@ -26,13 +26,13 @@ export class ProductsComponent {
 
   selectedFile: File | undefined;
 
-  //PARA EL DELETE:
-  //codeSelected: string | undefined;
+  codeSelected: string | undefined;
 
   formAddProduct = this.toolsForm.group({
     'name': ['', [Validators.required]],
     'price': ['', [Validators.required]],
     'stock': ['', [Validators.required]],
+    'details': ['', [Validators.required]],
     'image': ['']
   }
   )
@@ -49,12 +49,6 @@ export class ProductsComponent {
   addProduct() {
     console.log('Add product');
     this.modalService.open(this.addModalProduct, {centered: true})
-  }
-
-  deleteProduct() {
-    console.log('delete')
-    //this.codeSelected = code;
-    this.modalService.open(this.deleteModalProduct, {centered: true})
   }
 
   onFileSelected(event: any) {
@@ -74,6 +68,7 @@ export class ProductsComponent {
     productData.append('name', this.formAddProduct.get('name')?.value ?? '');
     productData.append('price', this.formAddProduct.get('price')?.value ?? '');
     productData.append('stock', this.formAddProduct.get('stock')?.value ?? '');
+    productData.append('details', this.formAddProduct.get('details')?.value ?? '')
     if (this.selectedFile) {
       productData.append('image', this.selectedFile, this.selectedFile.name);
     }
@@ -104,17 +99,27 @@ export class ProductsComponent {
     return `http://localhost:3000/uploads/${producto.image}`;
   }
 
-  /*deleteP() {
-    this.pagesService.deleteProduct(this.codeSelected).subscribe({
-      next: (value) => {
-        this.notifycation.success(value.message, 'Éxito');
-        this.showProducts();
-      },
-      error: (err) => {
-        this.notifycation.error(err.message, 'Error');
-      }
-    });
-  }*/
+  deleteProduct(code:string) {
+    this.codeSelected = code;
+    this.modalService.open(this.deleteModalProduct, {centered: true})
+  }
+
+  confirmDelete() {
+    if (this.codeSelected) {
+      this.pagesService.deleteProduct(this.codeSelected).subscribe({
+        next: (value) => {
+          this.notifycation.success(value.message, 'Éxito');
+          this.modalService.dismissAll();
+          this.showProducts();
+        },
+        error: (err) => {
+          this.notifycation.error(err.message, 'Error');
+        }
+      });
+    } else {
+      console.error('No se proporcionó un código válido para eliminar el producto.')
+    }
+  }
 
   filterProduct() {
     this.listFiltrados = this.listDeProductos.filter(
