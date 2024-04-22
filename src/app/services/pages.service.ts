@@ -7,6 +7,7 @@ export interface ProductModel {
     name: string;
     price: number;
     stock: number;
+    image: string;
   }
 
 @Injectable({
@@ -20,8 +21,8 @@ export class PagesService {
   private pages_end_point = 'http://localhost:3000';
   constructor() { }
   
-  addProduct(data: ProductModel): Observable<any> {
-    return this.httpService.post(this.pages_end_point+'/registrar_producto', { ...data });
+  addProduct(productData : FormData): Observable<any> {
+    return this.httpService.post(this.pages_end_point+'/registrar_producto', productData);
   }
 
   showProduct(): Observable<ProductModel[]> {

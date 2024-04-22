@@ -24,13 +24,16 @@ export class ProductsComponent {
 
   filtroProducto: string = '';
 
+  selectedFile: File | undefined;
 
-  codeSelected: string | undefined;
+  //PARA EL DELETE:
+  //codeSelected: string | undefined;
 
   formAddProduct = this.toolsForm.group({
     'name': ['', [Validators.required]],
     'price': ['', [Validators.required]],
-    'stock': ['', [Validators.required]]
+    'stock': ['', [Validators.required]],
+    'image': ['']
   }
   )
 
@@ -54,6 +57,10 @@ export class ProductsComponent {
     this.modalService.open(this.deleteModalProduct, {centered: true})
   }
 
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
   save() {
     if (this.formAddProduct.invalid) {
       this.notifycation.error('Debes completar todos los campos correctamente', 'Error'); 
@@ -62,12 +69,16 @@ export class ProductsComponent {
 
     const randomCode = (Math.floor(10000000 + Math.random() * 90000000)).toString();
 
-    this.pagesService.addProduct({
-      code: randomCode,
-      name: this.formAddProduct.get('name')?.value ?? '',
-      price: Number(this.formAddProduct.get('price')?.value) ?? 0,
-      stock: Number(this.formAddProduct.get('stock')?.value) ?? 0,
-    }).subscribe({
+    const productData: FormData = new FormData();
+    productData.append('code', randomCode);
+    productData.append('name', this.formAddProduct.get('name')?.value ?? '');
+    productData.append('price', this.formAddProduct.get('price')?.value ?? '');
+    productData.append('stock', this.formAddProduct.get('stock')?.value ?? '');
+    if (this.selectedFile) {
+      productData.append('image', this.selectedFile, this.selectedFile.name);
+    }
+
+    this.pagesService.addProduct(productData).subscribe({
       next: (value) => {
         console.log(value),
         this.notifycation.success(`Producto ${value.name} ${value.message} `, 'Éxito'),
@@ -80,12 +91,17 @@ export class ProductsComponent {
     })
   }
 
+
   showProducts():void {
     this.pagesService.showProduct()
     .subscribe(productos => {
       this.listDeProductos = productos;
       this.listFiltrados = [...this.listDeProductos];
     })
+  }
+
+  imageUrl(producto: ProductModel):string {
+    return `http://localhost:3000/uploads/${producto.image}`;
   }
 
   /*deleteP() {

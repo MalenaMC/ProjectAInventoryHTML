@@ -31,6 +31,7 @@
                                 <tr>
                                     <th>Codigo</th>
                                     <th>Nombre</th>
+                                    <th>Imagen</th>
                                     <th>Precio</th>
                                     <th>Stock</th>
                                     <th> </th>
@@ -40,6 +41,9 @@
                                 <tr *ngFor="let producto of listFiltrados">
                                     <td>{{producto.code}}</td>
                                     <td>{{producto.name}}</td>
+                                    <td>
+                                        <img [src]="imageUrl(producto)" alt="Imagen del producto" width="100">
+                                    </td>
                                     <td>{{producto.price}}</td>
                                     <td>{{producto.stock}}</td>
                                     <td class="text-center">
@@ -84,6 +88,15 @@
                         <i class="bi bi-bag"></i>
                     </div>
                     <input type="text" class="form-control" placeholder="Nombre" formControlName="name">
+                </div>
+                <label for="image" class="form-label">
+                    Imagen del producto:
+                </label>
+                <div class="mb-4 input-group">
+                    <div class="input-group-text">
+                        <i class="bi bi-card-image"></i>
+                    </div>
+                    <input type="file" (change)="onFileSelected($event)" class="form-control" formControlName="image">
                 </div>
                 <label for="price" class="form-label">
                     Precio:
