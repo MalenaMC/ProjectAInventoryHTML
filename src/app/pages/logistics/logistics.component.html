@@ -1,0 +1,178 @@
+<div class="col bg-white p-5 rounded-end">
+    <div class="p-3">
+        <h2 class="text-center fs-1 fw-bold py-4">Gestión de stock de Productos</h2>
+        <div class="tabla-botones">
+            <div class="container-fluid">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-auto">
+                        <div class="d-flex flex-wrap justify-content-center">
+                            <button type="button" class="m-3 px-5 btn btn-primary fw-semibold shadow-sm" (click)="modalAddStock()">Agregar stock a producto</button>
+                            <button type="button" class="m-3 px-5 btn btn-warning fw-semibold shadow-sm" (click)="modalRemoveStock()">Quitar stock a producto</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container container-fluid">
+                <div class="row align-items-center">
+                        <div class="d-flex flex-wrap align-items-center justify-content-between">
+                            <div class="mt-5 d-flex flex-wrap align-items-center justify-content-center">
+                                <div class="mx-2">
+                                    <label class="form-label">Filtrar</label>
+                                </div>
+                                <div>
+                                    <select class="form-select" [(ngModel)]="filtroReporte" (change)="filterLogType_Movement()">
+                                        <option value="Todos">Todos</option>
+                                        <option value="Ingreso">Ingreso</option>
+                                        <option value="Salida">Salida</option>
+                                    </select>                                    
+                                </div> 
+                            </div>
+                            <div class="mt-5 d-flex flex-wrap align-items-center justify-content-center">
+                                <div class="mx-2">
+                                    <label class="form-label">Filtrar por fecha</label>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <input type="datetime-local" class="form-control" [(ngModel)]="startDate">
+                                    <span class="mx-1">-</span>
+                                    <input type="datetime-local" class="form-control" [(ngModel)]="endDate">
+                                    <button class="mx-2 btn btn-dark" (click)="filterLogDate()">Filtrar</button>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="table-responsive">
+                    <table class="table table-hover caption-top table-striped">
+                        <caption>Lista de movimientos</caption>
+                        <thead class="table-dark text-center">
+                            <tr>
+                                <th>Tipo de movimiento</th>
+                                <th>Código de producto</th>
+                                <th>Nombre de producto</th>
+                                <th>Cantidad</th>
+                                <th>Fecha y hora</th>
+                                <th>Detalles</th>
+                            </tr>
+                        </thead>
+                        <tbody class="align-middle">
+                            <tr *ngFor="let reporte of listFiltrados">
+                                <td>{{reporte.movement_type}}</td>
+                                <td>{{reporte.code_product}}</td>
+                                <td>{{reporte.name}}</td>
+                                <td>{{reporte.lot}}</td>
+                                <td>{{reporte.datetime | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                                <td>{{reporte.details}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-md-auto">
+                        <div class="d-flex flex-wrap justify-content-center">
+                            <button class="btn m-1 btn-dark btn-sm">PDF</button>
+                            <button class="btn m-1 btn-success btn-sm">Print</button>
+                            <button class="btn m-1 btn-warning btn-sm">Export</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<ng-template #addModalAddStock let-modal>
+    <form [formGroup]="formStock" (ngSubmit)="saveAddStock()">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Ingreso de stock</h5>
+            </div>
+            <div class="card-body">
+                <label for="code" class="form-label">
+                    Código del producto:
+                </label>
+                <div class="mb-4 input-group">
+                    <div class="input-group-text">
+                        <i class="bi bi-qr-code"></i>
+                    </div>
+                    <input type="number" class="form-control" placeholder="Código" formControlName="code_product">
+                    <button class="btn btn-warning" type="button" (click)="searchProduct()">Buscar</button>
+                </div>
+                <div *ngIf="productFound">
+                    <label for="name" class="form-label">
+                        Cantidad:
+                    </label>
+                    <div class="mb-4 input-group">
+                        <div class="input-group-text">
+                            <i class="bi bi-box"></i>
+                        </div>
+                        <input type="number" class="form-control" placeholder="Cantidad" formControlName="lot">
+                    </div>
+                    <label for="name" class="form-label">
+                        Detalles:
+                    </label>
+                    <div class="mb-4 input-group">
+                        <div class="input-group-text">
+                            <i class="bi bi-box"></i>
+                        </div>
+                        <textarea type="text" class="form-control" placeholder="Detalles" formControlName="details" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <button class="btn btn-success"> Ingreso </button>
+                <button class="btn btn-danger ml-auto" type="button" (click)="cancel()"> Cancelar </button>
+            </div>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #addModalRemoveStock let-modal>
+    <form [formGroup]="formStock" (ngSubmit)="saveRemoveStock()">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Salida de stock</h5>
+            </div>
+            <div class="card-body">
+                <label for="code" class="form-label">
+                    Código del producto:
+                </label>
+                <div class="mb-4 input-group">
+                    <div class="input-group-text">
+                        <i class="bi bi-qr-code"></i>
+                    </div>
+                    <input type="number" class="form-control" placeholder="Código" formControlName="code_product">
+                    <button class="btn btn-warning" type="button" (click)="searchProduct()">Buscar</button>
+                </div>
+                <div *ngIf="productFound">
+                    <label for="name" class="form-label">
+                        Cantidad:
+                    </label>
+                    <div class="mb-4 input-group">
+                        <div class="input-group-text">
+                            <i class="bi bi-box"></i>
+                        </div>
+                        <input type="number" class="form-control" placeholder="Cantidad" formControlName="lot">
+                    </div>
+                    <label for="name" class="form-label">
+                        Detalles:
+                    </label>
+                    <div class="mb-4 input-group">
+                        <div class="input-group-text">
+                            <i class="bi bi-box"></i>
+                        </div>
+                        <textarea type="text" class="form-control" placeholder="Detalles" formControlName="details" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <button class="btn btn-success"> Salida </button>
+                <button class="btn btn-danger ml-auto" type="button" (click)="cancel()"> Cancelar </button>
+            </div>
+        </div>
+    </form>
+</ng-template>
+

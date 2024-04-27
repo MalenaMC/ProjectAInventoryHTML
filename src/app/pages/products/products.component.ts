@@ -33,7 +33,7 @@ export class ProductsComponent {
     'price': ['', [Validators.required]],
     'stock': ['', [Validators.required]],
     'details': ['', [Validators.required]],
-    'image': ['']
+    'image': ['',[Validators.required]]
   }
   )
 
@@ -47,7 +47,6 @@ export class ProductsComponent {
   }
 
   addProduct() {
-    console.log('Add product');
     this.modalService.open(this.addModalProduct, {centered: true})
   }
 
@@ -55,6 +54,10 @@ export class ProductsComponent {
     this.selectedFile = event.target.files[0];
   }
 
+  imageUrl(producto: ProductModel):string {
+    return `http://localhost:3000/uploads/${producto.image}`;
+  }
+  
   save() {
     if (this.formAddProduct.invalid) {
       this.notifycation.error('Debes completar todos los campos correctamente', 'Error'); 
@@ -87,16 +90,12 @@ export class ProductsComponent {
   }
 
 
-  showProducts():void {
+  showProducts() {
     this.pagesService.showProduct()
     .subscribe(productos => {
       this.listDeProductos = productos;
       this.listFiltrados = [...this.listDeProductos];
     })
-  }
-
-  imageUrl(producto: ProductModel):string {
-    return `http://localhost:3000/uploads/${producto.image}`;
   }
 
   deleteProduct(code:string) {

@@ -3,6 +3,7 @@ import { ProductsComponent } from "./products/products.component";
 import { HomeComponent } from "./home/home.component";
 import { AboutComponent } from "./about/about.component";
 import { PagesComponent } from "./pages.component";
+import { LogisticsComponent } from "./logistics/logistics.component";
 
 export const pagesRoutes: Routes = [
     {
@@ -20,6 +21,10 @@ export const pagesRoutes: Routes = [
             {
                 path: 'products',
                 component: ProductsComponent
+            },
+            {
+                path: 'logistics',
+                component: LogisticsComponent
             }
 
         ]

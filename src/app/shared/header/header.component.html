@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" [routerLink]="['/pages/home']"><i class="bi bi-list"></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,34 +10,25 @@
           <a class="nav-link active"  aria-current="page" [routerLink]="['/pages/home']">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" [routerLink]="['/pages/about']">Sobre nosotros</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" [routerLink]="['/pages/products']">Productos</a>
         </li>
-        <!--
-          <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" [routerLink]="['/pages/logistics']">Logísica</a>
         </li>
-         -->
       </ul>
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
         <button class="btn btn-outline-light" type="submit">Buscar</button>
       </form>
     </div>
-  </div>
-</nav>
-
-<!--
-<div class="container-fluid bg-color-purple">
-  <div class="row justify-content-center pt-1">
-    <div class="col-md-6">
-      <div class="text-center text-beige">
-        <p class="mb-0">{{ currentDate }}</p>
-        <h5 class="mt-0">{{ currentTime }}</h5>
+    <div class="bg-color-purple rounded px-3 d-flex text-center text-white mx-3 align-items-center">
+      <i class="bi bi-clock fs-4"></i>
+      <div class="mx-2 my-1">
+        <h6 class="m-0">{{ currentTime }}</h6>
+        <h6 class="m-0">{{ currentDate }}</h6>
       </div>
     </div>
   </div>
-</div>
--->
+</nav>
+
+
